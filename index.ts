@@ -3,6 +3,8 @@ import { MongoClient } from "mongodb";
 import express, { Request, Response } from "express";
 import { foodCategoryRouter } from "./router/food-category";
 import { foodModel } from "./models/food-model";
+import { foodRouter } from "./router/food";
+import { usersModel } from "./models/users";
 const fs = require("fs");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -18,48 +20,38 @@ const connectMongoDb = async () => {
 };
 connectMongoDb();
 app.use("/food-category", foodCategoryRouter);
+app.use("/food", foodRouter);
 
-app.get("/food", async (req: Request, res: Response) => {
-  const food = await foodModel.find();
-  res.json(food);
+app.get("/users", async (req: Request, res: Response) => {
+  const users = await usersModel.find();
+  res.json(users);
 });
 
-app.post("/food", async (req: Request, res: Response) => {
-  const newItem = await foodModel.create({
-    foodName: req.body.foodName,
-    price: req.body.price,
-    image: "htpp://url",
-    ingredients: "",
+app.post("/users", async (req: Request, res: Response) => {
+  const newUser = await usersModel.create({
+    email: req.body.email,
   });
-  res.json({ message: "new food created succesfully", newItem });
+  res.json({ message: "new food created succesfully", newUser });
 });
 
-app.delete("/food/:id", async (req: Request, res: Response) => {
+app.delete("/users/:id", async (req: Request, res: Response) => {
   const deleteId = req.params.id;
-  const deleteFood = await foodModel.findByIdAndDelete(deleteId);
+  const deleteUsers = await usersModel.findByIdAndDelete(deleteId);
 
-  res.json({
-    message: "food deleted",
-    deleteFood,
-    price: req.body.price,
-    image: "htpp://url",
-    ingredients: "",
-  });
+  res.json({ message: "Users deleted", deleteUsers });
 });
 
-app.put("/food/:id", async (req: Request, res: Response) => {
+app.put("/users/:id", async (req: Request, res: Response) => {
   const updateId = req.params.id;
-  const foodUpdated = await foodModel.findByIdAndUpdate(
+  const usersUpdate = await usersModel.findByIdAndUpdate(
     updateId,
     {
-      foodName: req.body.foodName,
-      price: req.body.price,
-      image: "htpp://url",
-      ingredients: "",
+      email: req.body.email,
+      password: req.body.password,
     },
     { new: true }
   );
-  res.json(foodUpdated);
+  res.json(usersUpdate);
 });
 
 app.listen(PORT, () => {
