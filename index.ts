@@ -2,7 +2,6 @@ import { configDotenv } from "dotenv";
 import { MongoClient } from "mongodb";
 import express, { Request, Response } from "express";
 import { foodCategoryRouter } from "./router/food-category";
-import { foodModel } from "./models/food-model";
 import { foodRouter } from "./router/food";
 import { usersModel } from "./models/users";
 const fs = require("fs");
