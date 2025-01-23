@@ -29,6 +29,16 @@ app.get("/users", async (req: Request, res: Response) => {
 app.post("/users", async (req: Request, res: Response) => {
   const newUser = await usersModel.create({
     email: req.body.email,
+    password: req.body.password,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
+    role: req.body.role,
+    orderedFoods: req.body.orderedFoods,
+    ttl: Date.now(),
+    isVerified: req.body.isVerified,
+    ingredients: req.body.ingredients,
+    price: req.body.price,
+    quantity: req.body.quantity,
   });
   res.json({ message: "new food created succesfully", newUser });
 });
@@ -47,6 +57,15 @@ app.put("/users/:id", async (req: Request, res: Response) => {
     {
       email: req.body.email,
       password: req.body.password,
+      phoneNumber: req.body.phoneNumber,
+      address: req.body.address,
+      role: req.body.role,
+      orderedFoods: req.body.orderedFoods,
+      ttl: Date.now(),
+      isVerified: req.body.isVerified,
+      ingredients: req.body.ingredients,
+      price: req.body.price,
+      quantity: req.body.quantity,
     },
     { new: true }
   );

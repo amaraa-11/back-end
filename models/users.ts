@@ -11,6 +11,8 @@ const USERS_SCHEMA = new Schema(
     ttl: Date,
     isVerified: Boolean,
     ingredients: String,
+    price: Number,
+    quantity: Number,
   },
   {
     timestamps: true,
