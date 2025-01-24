@@ -13,8 +13,9 @@ foodRouter.post("/", async (req: Request, res: Response) => {
   const newItem = await foodModel.create({
     foodName: req.body.foodName,
     price: req.body.price,
-    image: "htpp://url",
-    ingredients: req.params.ingredients,
+    image: "",
+    ingredients: req.body.ingredients,
+    category: req.body.category,
   });
   res.json({ message: "new food created succesfully", newItem });
 });
@@ -33,8 +34,8 @@ foodRouter.put("/:id", async (req: Request, res: Response) => {
     {
       foodName: req.body.foodName,
       price: req.body.price,
-      image: "htpp://url",
-      ingredients: req.params.ingredients,
+      image: "",
+      ingredients: req.body.ingredients,
     },
     { new: true }
   );

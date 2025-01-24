@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, models } from "mongoose";
 
 const FOOD_SCHEMA = new Schema(
   {
@@ -6,12 +6,12 @@ const FOOD_SCHEMA = new Schema(
     price: Number,
     image: String,
     ingredients: String,
-    // category: ObjectId,
+    category: String,
   },
   {
     timestamps: true,
   }
 );
-const foodModel = model("Food", FOOD_SCHEMA, "food");
+const foodModel = models["Food"] || model("Food", FOOD_SCHEMA, "food");
 
 export { foodModel };
